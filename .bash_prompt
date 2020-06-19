@@ -1,0 +1,13 @@
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
+
+export COLOR_PURPLE='\e[1;35m'
+export COLOR_WHITE='\e[1;37m'
+export COLOR_BROWN='\e[1;33m'
+export COLOR_GREEN='\e[1;32m'
+export RESET="\033[m"
+
+export PS1="\[${BOLD}${COLOR_GREEN}\]\u \[$COLOR_WHITE\]at \[$COLOR_BROWN\]\h \[$COLOR_WHITE\]in \[$COLOR_GREEN\]\w\[$COLOR_WHITE\]\[$COLOR_WHITE\]\n\$ \[$RESET\]"

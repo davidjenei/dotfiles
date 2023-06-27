@@ -1,0 +1,41 @@
+version: 2
+root-markers:
+  - .git/
+log-file: /home/djen/output.log
+log-level: 1
+lint-debounce: 1s
+
+tools:
+  sh-shellcheck: &sh-shellcheck
+    lint-command: 'shellcheck -f gcc -x'
+    lint-source: 'shellcheck'
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+  sh-shfmt: &sh-shfmt
+    format-command: 'shfmt -ci -s -bn'
+    format-stdin: true
+
+  json-jq: &json-jq
+    lint-command: 'jq .'
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%m at line %l, column %c'
+
+  markdown-pandoc: &markdown-pandoc
+    format-command: 'pandoc -f gfm -t markdown_github+yaml_metadata_block-auto_identifiers --reference-links --reference-location=document -sp --tab-stop=4'
+
+
+languages:
+  sh:
+    - <<: *sh-shellcheck
+    - <<: *sh-shfmt
+
+  json:
+    - <<: *json-jq
+
+  markdown:
+    - <<: *markdown-pandoc

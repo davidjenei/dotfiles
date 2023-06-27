@@ -1,0 +1,59 @@
+[alias]
+
+	# View abbreviated SHA, description, and history graph of the latest 20 commits.
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+	# View the current working tree status using the short format.
+	s = status -sb
+
+	c = commit -av
+
+	# Commit all changes.
+	ca = !git add -A && git commit -av
+
+	# Diff patience
+	dp = diff --patience
+	dc = diff --cached
+
+	lg = log -p
+	lm = log --pretty=format:'* %s (%h)'
+
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch --all
+	remotes = remote --verbose
+
+# Interactive rebase with the given number of latest commits.
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+	# Find commits by source code
+	fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+	# Find commits by commit message
+	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+
+	# Super clean
+	distclean = !git reset --hard && git clean --force -d -x
+
+	recent = !git for-each-ref --color=always --sort=-committerdate refs/heads --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:white)%(authorname)%(color:reset)'|column -ts'|'
+
+[user]
+	name = David Jenei
+	email = info@davidjenei.com
+	username = davidjenei
+
+[init]
+
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+
+[color "status"]
+        added = green
+        changed = yellow bold
+        untracked = red bold

@@ -127,7 +127,7 @@ COLOR_GREEN='\e[1;32m'
 RESET="\033[m"
 export PS1="\[${BOLD}${COLOR_GREEN}\]\u \[$COLOR_WHITE\]at \[$COLOR_BROWN\]\h \[$COLOR_WHITE\]in \[$COLOR_GREEN\]\w\[$COLOR_WHITE\]\[$COLOR_WHITE\]\n\$ \[$RESET\]"
 
-source .functions
+source ~/.functions
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -167,3 +167,6 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
 alias r='$(fc -ln -1) | less'
+
+export PYTHONSTARTUP=~/.pythonrc.py
+export PYTHON_HISTORY_FILE=~/.python_history

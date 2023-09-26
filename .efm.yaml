@@ -26,7 +26,7 @@ tools:
       - '%m at line %l, column %c'
 
   markdown-pandoc: &markdown-pandoc
-    format-command: 'pandoc -f gfm -t markdown_github+yaml_metadata_block-auto_identifiers --reference-links --reference-location=document -sp --tab-stop=4'
+    format-command: 'pandoc -f gfm --markdown-headings=setext -t markdown_github+yaml_metadata_block-auto_identifiers --reference-links --reference-location=document -sp --tab-stop=4'
 
 
 languages:

@@ -35,12 +35,12 @@ set autoindent
 set cindent
 autocmd FileType cpp setlocal cindent tabstop=2 shiftwidth=2 expandtab
 
-
 set textwidth=0
 set wrapmargin=0
 set wrap
 set linebreak
 set columns=80
+
 " Misc
 set scrolloff=2
 set nomore
@@ -81,17 +81,6 @@ autocmd BufWinLeave * call clearmatches()
 set lcs=tab:»·,nbsp:˷
 hi SpecialKey ctermfg=grey
 
-augroup VisibleNaughtiness
-    autocmd!
-    autocmd BufEnter  *       set list
-    autocmd BufEnter  *       set list
-    autocmd BufEnter  *.txt   set nolist
-    autocmd BufEnter  *.vp*   set nolist
-    autocmd BufEnter  *       if !&modifiable
-    autocmd BufEnter  *       set nolist
-    autocmd BufEnter  *       endif
-augroup END
-
 "" Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 "
@@ -108,12 +97,14 @@ set nu rnu
 " Terminal debugging setup
 packadd termdebug
 let g:termdebugger = "gdb-multiarch"
+hi! link debugPC Visual
+hi! link debugBreakpoint Visual
 "let g:termdebug_popup = 0
 "
 " File explorer
 if &columns < 90
   " If the screen is small, occupy half
-  let g:netrw_winsize = 50
+  let g:netrw_winsize = 40
 else
   " else take 30%
   let g:netrw_winsize = 25
@@ -170,9 +161,9 @@ set foldtext=MyFoldText()
 " Extensions
 
 " Slime
-let g:slime_target = "vimterminal"
-let g:slime_cell_delimiter = "^\\s*# %%"
-let g:slime_vimterminal_cmd = "python3 -m IPython --profile=my-profile --no-banner"
+autocmd FileType python let b:slime_vimterminal_cmd='python3'
+autocmd FileType python let g:slime_target = "vimterminal"
+autocmd FileType python let g:slime_cell_delimiter = "^\\s*# %%"
 let g:slime_vimterminal_config = {"term_finish": "close"}
 nmap <buffer> <c-c><c-c> <Plug>SlimeSendCell
 nmap <buffer> <c-k><c-k> <Plug>SlimeLineSend1
@@ -229,15 +220,17 @@ highlight link LspWarningText LineNr
 highlight link LspInformation LineNr
 highlight link LspHint LineNr
 
-"let g:lsp_document_highlight_enabled = 0
-"let g:lsp_diagnostics_highlights_enabled = 0
-"let g:lsp_diagnostics_echo_cursor = 1
-"let g:lsp_format_sync_timeout = 1000
 let g:lsp_diagnostics_signs_error = {'text': '✗'}
 let g:lsp_diagnostics_signs_warning = {'text': '‼'}
 let g:lsp_diagnostics_signs_information = {'text': 'i'}
 let g:lsp_diagnostics_signs_hint = {'text': 'i'}
-"let g:lsp_preview_doubletap = [function('lsp#ui#vim#output#closepreview')]
+let g:lsp_document_code_action_signs_hint = {'text': '>'}
+let g:lsp_preview_doubletap = [function('lsp#ui#vim#output#closepreview')]
+let g:lsp_preview_float = 0
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_signature_help_enabled = 0
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/.vim-lsp.log')
 autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 
 silent !stty -ixon
@@ -264,5 +257,3 @@ function! StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 " }}}
-
-autocmd BufEnter * if bufname('%') == "Scratch" | setlocal columns=80 wrap| endif

@@ -7,12 +7,20 @@
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
+#
+# Base16 Shell colors
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        source "$BASE16_SHELL/profile_helper.sh"
+base16_tomorrow-night-eighties
+
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+        . "$HOME/.bashrc"
     fi
 fi
 

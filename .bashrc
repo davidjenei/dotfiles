@@ -112,13 +112,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Base16 Shell colors
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        source "$BASE16_SHELL/profile_helper.sh"
-base16_tomorrow-night-eighties
-
 # Prompt colors
 COLOR_PURPLE='\e[1;35m'
 COLOR_WHITE='\e[1;37m'
@@ -170,3 +163,4 @@ alias r='$(fc -ln -1) | less'
 
 export PYTHONSTARTUP=~/.pythonrc.py
 export PYTHON_HISTORY_FILE=~/.python_history
+
